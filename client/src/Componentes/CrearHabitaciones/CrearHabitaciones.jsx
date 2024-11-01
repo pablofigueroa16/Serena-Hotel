@@ -6,7 +6,7 @@ import axios from "axios";
 import { useVerificarIsAdmin } from "../AutenticadorToken/autenticadorLocalStIsAdmin.jsx";
 import Swal from "sweetalert2";
 const CrearHabitacion = () => {
-  useVerificarIsAdmin()
+  // useVerificarIsAdmin()
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
   const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -53,11 +53,17 @@ const CrearHabitacion = () => {
 
   const isSubmitDisabled = () => {
     // Verifica si hay algún campo obligatorio sin completar
-    if ( errors.nombre!="" || errors.descripcion!="" || errors.servicios!="") return true;
+    if (
+      errors.nombre != "" ||
+      errors.descripcion != "" ||
+      errors.servicios != ""
+    )
+      return true;
     else {
       return Object.values(habitacionData).some(
-      (value) => value === "" || (Array.isArray(value) && value.length === 0)
-    )}
+        (value) => value === "" || (Array.isArray(value) && value.length === 0)
+      );
+    }
   };
 
   const handleChangeServicio = (index, event) => {
@@ -86,7 +92,7 @@ const CrearHabitacion = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log("aquiiiiiiiiiiiiiiiiiiiiiii", errors)
+    console.log("aquiiiiiiiiiiiiiiiiiiiiiii", errors);
     setHabitacionData({
       ...habitacionData,
       [name]: value,
@@ -177,7 +183,9 @@ const CrearHabitacion = () => {
   return (
     <div className="bg-verde p-8 rounded-lg mx-4 my-16">
       <div className="flex flex-col">
-        <h1 className="text-4xl font-bold mb-12 xl:mb-28 text-center xl:text-left">Crear Habitación</h1>
+        <h1 className="text-4xl font-bold mb-12 xl:mb-28 text-center xl:text-left">
+          Crear Habitación
+        </h1>
         <form
           className="flex flex-col 2xl:flex-row gap-20 mx-2 my-10"
           onSubmit={handleSubmit}
@@ -224,7 +232,9 @@ const CrearHabitacion = () => {
                 onBlur={() => handleBlur("nombre")}
                 value={habitacionData.nombre}
               />
-              <p className="my-4 text-base text-center">{touchedFields.nombre && errors.nombre}</p>
+              <p className="my-4 text-base text-center">
+                {touchedFields.nombre && errors.nombre}
+              </p>
             </div>
 
             <div>
@@ -343,7 +353,9 @@ const CrearHabitacion = () => {
                 onChange={handleChange}
                 onBlur={() => handleBlur("descripcion")}
               />
-              <p className="text-center">{touchedFields.descripcion && errors.descripcion}</p>
+              <p className="text-center">
+                {touchedFields.descripcion && errors.descripcion}
+              </p>
             </div>
           </div>
 
@@ -374,7 +386,7 @@ const CrearHabitacion = () => {
           </div>
         </form>
       </div>
-      </div>
+    </div>
   );
 };
 

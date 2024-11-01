@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteReservas, envioNotificion, getReservas_Admin } from "../../redux/Actions/actions";
+import {
+  deleteReservas,
+  envioNotificion,
+  getReservas_Admin,
+} from "../../redux/Actions/actions";
 import Paginacion from "../Paginacion/Paginacion";
 import { useVerificarIsAdmin } from "../AutenticadorToken/autenticadorLocalStIsAdmin";
 
 const AdminReservasTabla = () => {
-  useVerificarIsAdmin()
+  // useVerificarIsAdmin()
   const dispatch = useDispatch();
   const reservasTodasAdmin = useSelector((state) => state.reservasTodasAdmin);
   const [paginaActual, setPaginaActual] = useState(1);
@@ -24,22 +28,27 @@ const AdminReservasTabla = () => {
     paginaActual * itemsPerPage
   );
 
-  const handleDeleteReserva = async (idReserva, idMail,fechaEntrada, fechaSalida) => {
+  const handleDeleteReserva = async (
+    idReserva,
+    idMail,
+    fechaEntrada,
+    fechaSalida
+  ) => {
     try {
       await dispatch(deleteReservas(idReserva));
       dispatch(getReservas_Admin({ page: paginaActual, itemsPerPage }));
-      dispatch(envioNotificion({
-        destinatario: idMail,
-        asunto: `Cancelación Reserva N° ${idReserva}`,
-        mensaje:`<p>Queremos informarle que la reserva <strong>N° ${idReserva}</strong> para las fechas desde <strong>${fechaEntrada}</strong> al <strong>${fechaSalida}</strong>, ha sido cancelada.</p>
+      dispatch(
+        envioNotificion({
+          destinatario: idMail,
+          asunto: `Cancelación Reserva N° ${idReserva}`,
+          mensaje: `<p>Queremos informarle que la reserva <strong>N° ${idReserva}</strong> para las fechas desde <strong>${fechaEntrada}</strong> al <strong>${fechaSalida}</strong>, ha sido cancelada.</p>
         <p>Para más información, contáctenos a través de nuestro correo <a href="mailto:serenahotel25@gmail.com">serenahotel25@gmail.com</a>.</p>
         <br/>
         <br/>
-        <p>Equipo Serena Hotel.<p>`
-      }
-      ))
-    } catch (error) {
-    }
+        <p>Equipo Serena Hotel.<p>`,
+        })
+      );
+    } catch (error) {}
   };
 
   return (
@@ -92,11 +101,17 @@ const AdminReservasTabla = () => {
                     <td className="py-6 pl-2 pr-6 text-center">
                       <span
                         className="material-symbols-outlined w-10 h-16 flex items-center justify-center text-blanco opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
-                        onClick={() => handleDeleteReserva(linea.id_reserva, linea.email, linea.fecha_entrada, linea.fecha_salida)}
+                        onClick={() =>
+                          handleDeleteReserva(
+                            linea.id_reserva,
+                            linea.email,
+                            linea.fecha_entrada,
+                            linea.fecha_salida
+                          )
+                        }
                       >
                         Delete
                       </span>
-                     
                     </td>
                   </tr>
                 ))}
