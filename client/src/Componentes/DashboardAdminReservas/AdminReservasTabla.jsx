@@ -9,7 +9,7 @@ import Paginacion from "../Paginacion/Paginacion";
 import { useVerificarIsAdmin } from "../AutenticadorToken/autenticadorLocalStIsAdmin";
 
 const AdminReservasTabla = () => {
-  // useVerificarIsAdmin()
+  useVerificarIsAdmin();
   const dispatch = useDispatch();
   const reservasTodasAdmin = useSelector((state) => state.reservasTodasAdmin);
   const [paginaActual, setPaginaActual] = useState(1);
