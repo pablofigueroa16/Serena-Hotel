@@ -389,7 +389,7 @@ const UpdateHabitacion = () => {
                 <span className="material-symbols-outlined p-3 text-blanco ">
                   home
                 </span>
-                <p className="text-negro text-sm text-center text-negro">
+                <p className="text-negro text-sm text-center ">
                   {
                     <input
                       onChange={(event) => handleChangeServicio(3, event)}
