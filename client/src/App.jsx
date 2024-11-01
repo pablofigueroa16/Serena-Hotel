@@ -28,7 +28,7 @@ import GraficosAdmin from "./Componentes/DashBoarAdmin/DashBoarAdmin.jsx";
 // Luego nos va a servir para hacer el Deploy del front
 
 //axios.defaults.baseURL = "http://localhost:3001/"; // comentarlo cuando lo suba haga el marge con
-axios.defaults.baseURL = "https://serenahotel.up.railway.app/";
+axios.defaults.baseURL = "https://serena-hotel.onrender.com/";
 
 const App = () => {
   return (
